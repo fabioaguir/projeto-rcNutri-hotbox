@@ -169,6 +169,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Lord\Laroute\LarouteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,6 +234,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
     ],
 
 ];

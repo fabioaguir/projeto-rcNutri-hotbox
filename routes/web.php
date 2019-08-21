@@ -11,18 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Auth::routes();
+    Auth::routes();
 
-Route::group(['prefix' => 'was', 'middleware' => 'auth', 'as' => 'was.'], function () {
+    Route::group(['prefix' => 'was', 'middleware' => 'auth', 'as' => 'was.'], function () {
 
-    Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::group(['prefix' => 'candidato'], function () {
+        Route::group(['prefix' => 'candidato'], function () {
 
+        });
     });
 });
+
+
 
