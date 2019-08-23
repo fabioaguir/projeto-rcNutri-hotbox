@@ -167,7 +167,6 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Lord\Laroute\LarouteServiceProvider::class,
@@ -180,6 +179,9 @@ return [
         // Was\Providers\BroadcastServiceProvider::class,
         Was\Providers\EventServiceProvider::class,
         Was\Providers\RouteServiceProvider::class,
+
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        \Was\Providers\RepositoryServiceProvider::class,
 
     ],
 

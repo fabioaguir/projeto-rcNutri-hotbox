@@ -13,17 +13,22 @@
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/', function () {
-        return view('welcome');
+        return redirect()->route('login');
     });
 
     Auth::routes();
 
-    Route::group(['prefix' => 'was', 'middleware' => 'auth', 'as' => 'was.'], function () {
+    Route::group(['prefix' => 'was', 'middleware' => 'auth'], function () {
 
         Route::get('/home', 'HomeController@index')->name('home');
 
-        Route::group(['prefix' => 'candidato'], function () {
-
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/', ['uses' => 'Web\UserController@index'])->name('user.index');
+            Route::post('/grid', ['uses' => 'Web\UserController@grid'])->name('user.grid');
+            Route::get('create', ['uses' => 'Web\UserController@create'])->name('user.create');
+            Route::post('store', ['uses' => 'Web\UserController@store'])->name('user.store');
+            Route::get('edit/{id}', ['uses' => 'Web\UserController@edit'])->name('user.edit');
+            Route::post('update/{id}', ['uses' => 'Web\UserController@update'])->name('user.update');
         });
     });
 });

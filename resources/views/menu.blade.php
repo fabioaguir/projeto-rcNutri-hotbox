@@ -199,9 +199,9 @@
                                         <li><a href="#"><i class="ti ti-home"></i><span>EXEMPLO</span></a></li>
 
                                         <li>
-                                            <a href="javascript:;"><i class="ti ti-user"></i><span>EXEMPLO</span></a>
+                                            <a href="javascript:;"><i class="ti ti-user"></i><span>ADMINISTRADOR</span></a>
                                             <ul class="acc-menu">
-                                                <li><a href="#">EXEMPLO</a></li>
+                                                <li><a href="{{ route('user.index')}}">USUÁRIO</a></li>
                                             </ul>
                                         </li>
                                         {{-- menu extras --}}

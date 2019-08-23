@@ -9,18 +9,32 @@
 namespace Was\Services;
 
 
-use PhpOption\Tests\Repository;
+use Prettus\Repository\Contracts\RepositoryInterface;
 
 class BaseService implements ServiceInterface
 {
 
     use TraitService;
 
-    private $repository;
+    protected $repository;
 
-    public function __construct(Repository $repository)
+    public function __construct($repository)
     {
         $this->repository = $repository;
+    }
+
+    public function find(int $id)
+    {
+        #Recuperando o registro no banco de dados
+        $user = $this->repository->find($id);
+
+        #Verificando se o registro foi encontrado
+        if(!$user) {
+            throw new \Exception('Usuário não encontrado!');
+        }
+
+        #retorno
+        return $user;
     }
 
     public function store(array $data)
