@@ -26,7 +26,7 @@ trait TraitService
             $nameModel = "Was\\Entities\\$model";
 
             #Recuperando o registro e armazenando no array
-            $result[strtolower($model)] = $nameModel::lists('nome', 'id');
+            $result[strtolower($model)] = $nameModel::pluck('nome', 'id');
         }
 
         #retorno

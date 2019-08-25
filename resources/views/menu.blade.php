@@ -63,7 +63,7 @@
 
         <div class="extrabar-underlay"></div>
 
-        <header id="topnav" class="navbar navbar-bluegray navbar-fixed-top">
+        <header id="topnav" class="navbar navbar-red navbar-fixed-top">
 
             {{-- logo-area --}}
             <div class="logo-area">
@@ -75,7 +75,7 @@
                     </a>
                 </span>
 
-                <a class="navbar-brand" href="index.html">Apostas Online+</a>
+                <a class="navbar-brand" href="{{ route('home') }}">HOTBOX</a>
 
                 <div class="toolbar-icon-bg hidden-xs" id="toolbar-search">
                     <div class="input-icon">
@@ -88,7 +88,7 @@
 
 
             {{-- Dropdowns do menu do topo --}}
-            <div class="yamm navbar-left navbar-collapse collapse in">
+            {{--<div class="yamm navbar-left navbar-collapse collapse in">
                 <ul class="nav navbar-nav">
                     <li class="dropdown" id="widget-classicmenu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">EXEMPLO<span class="caret"></span></a>
@@ -100,7 +100,7 @@
 
                     <li><a href="#">EXEMPLO</a></li>
                 </ul>
-            </div>
+            </div>--}}
 
 
             {{-- Opções direitas do menu do topo --}}
@@ -173,19 +173,24 @@
 
         <div id="wrapper">
             <div id="layout-static">
-                <div class="static-sidebar-wrapper sidebar-gray">
+                <div class="static-sidebar-wrapper sidebar-teal">
                     <div class="static-sidebar">
                         <div class="sidebar">
                             <div class="widget">
                                 <div class="widget-body">
                                     <div class="userinfo">
                                         <div class="avatar">
-                                            <img src="{{asset('/img/profile_small.jpg')}}"
-                                                 class="img-responsive img-circle">
+                                            @if (Auth::user()->path_image != null)
+                                                <img src="{{asset("/images/".Auth::user()->path_image)}}"
+                                                     class="img-responsive img-circle">
+                                            @else
+                                                <img src="{{asset('/img/profile_small.jpg')}}"
+                                                     class="img-responsive img-circle">
+                                            @endif
                                         </div>
                                         <div class="info">
                                             <span class="username">{{ Auth::user()->name }}</span>
-                                            {{--<span class="useremail">{{ Auth::user()->email }}</span>--}}
+                                            <span class="useremail">{{ Auth::user()->email }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -196,12 +201,21 @@
                                 <nav class="widget-body">
                                     <ul class="acc-menu">
                                         <li class="nav-separator"><span>Menu</span></li>
-                                        <li><a href="#"><i class="ti ti-home"></i><span>EXEMPLO</span></a></li>
+                                        <li><a href="{{ route('home')}}"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
+                                        <li>
+                                            <a href="javascript:;"><i class="ti ti-plus"></i><span>CADASTROS</span></a>
+                                            <ul class="acc-menu">
+                                                <li><a href="{{ route('setor.index')}}">SETORES</a></li>
+                                                <li><a href="{{ route('rota.index')}}">ROTAS</a></li>
+                                                <li><a href="{{ route('escola.index')}}">ESCOLAS</a></li>
+                                                <li><a href="{{ route('servico.index')}}">SERVIÇOS</a></li>
+                                            </ul>
+                                        </li>
 
                                         <li>
-                                            <a href="javascript:;"><i class="ti ti-user"></i><span>ADMINISTRADOR</span></a>
+                                            <a href="javascript:;"><i class="ti ti-shield"></i><span>ADMINISTRADOR</span></a>
                                             <ul class="acc-menu">
-                                                <li><a href="{{ route('user.index')}}">USUÁRIO</a></li>
+                                                <li><a href="{{ route('user.index')}}">USUÁRIOS</a></li>
                                             </ul>
                                         </li>
                                         {{-- menu extras --}}

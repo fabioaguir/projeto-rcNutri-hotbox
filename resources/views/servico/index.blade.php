@@ -1,5 +1,10 @@
 @extends('menu')
 
+@section('title')
+    @parent
+    SERVIÇOS
+@endsection
+
 @section('css')
     @parent
     <style>
@@ -11,7 +16,7 @@
 @endsection
 
 @section('page-heading')
-    <h1>Usuários</h1>
+    <h1>Serviços</h1>
 @endsection
 
 @section('container')
@@ -24,11 +29,27 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 </div>--}}
 
+                @if(Session::has('message'))
+                    <div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <em> {!! session('message') !!}</em>
+                    </div>
+                @endif
+
+                @if(Session::has('errors'))
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        @foreach($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
+
                 <div class="panel panel-default" data-widget='{"draggable": "false"}'>
                     <div class="panel-heading">
-                        <h2>Lista de Usuários</h2><br />
+                        <h2>Lista de Serviços</h2><br />
 
-                        <a href="{{ route('user.create')}}" class="btn btn-primary">Novo Usuário</a>
+                        <a href="{{ route('servico.create')}}" class="btn btn-primary">Novo Serviço</a>
 
                         <div class="panel-ctrls" data-actions-container=""
                              data-action-collapse='{"target": ".panel-body"}'></div>
@@ -36,19 +57,19 @@
 
                     <div class="panel-body">
                         <div class="table-responsive no-padding">
-                            <table id="user-grid" class="display table table-bordered" cellspacing="0" width="100%">
+                            <table id="servico-grid" class="display table table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
+                                    <th>Código</th>
                                     <th>Nome</th>
-                                    <th>Email</th>
                                     <th >Acão</th>
                                 </tr>
                                 </thead>
 
                                 <tfoot>
                                 <tr>
+                                    <th>Código</th>
                                     <th>Nome</th>
-                                    <th>Email</th>
                                     <th style="width: 10%;">Acão</th>
                                 </tr>
                                 </tfoot>
@@ -67,11 +88,11 @@
     @parent
     <script type="text/javascript">
 
-        var table = $('#user-grid').DataTable({
+        var table = $('#servico-grid').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{!! route('user.grid') !!}",
+                url: "{!! route('servico.grid') !!}",
                 method: 'POST'
             },
             language: {
@@ -89,8 +110,8 @@
                 }
             },
             columns: [
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
+                {data: 'id', name: 'id'},
+                {data: 'nome', name: 'nome'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -104,26 +125,6 @@
 
         $('.panel-footer').append($(".dataTable+.row"));
         $('.dataTables_paginate>ul.pagination').addClass("pull-right m-n");
-
-
-        /*//Seleciona uma linha
-         $('#crud-grid tbody').on( 'click', 'tr', function () {
-         if ( $(this).hasClass('selected') ) {
-         $(this).removeClass('selected');
-         }
-         else {
-         table.$('tr.selected').removeClass('selected');
-         $(this).addClass('selected');
-         }
-         } );
-
-         //Retonra o id do registro
-         $('#crud-grid tbody').on( 'click', 'tr', function () {
-
-         var rows = table.row( this ).data()
-
-         console.log( rows.id );
-         } );*/
 
     </script>
 @endsection

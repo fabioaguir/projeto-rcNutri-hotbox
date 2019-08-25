@@ -26,7 +26,37 @@
                              data-action-collapse='{"target": ".panel-body"}'></div>
                     </div>
                     <div class="panel-body">
-
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="info-tile tile-warning">
+                                    <div class="tile-icon"><i class="fa fa-archive"></i></div>
+                                    <div class="tile-heading"><span>Estoque Atual</span></div>
+                                    <div class="tile-body"><span>600</span></div>
+                                    {{--<div class="tile-footer"><span class="text-danger">-7.6% <i class="ti ti-arrow-down"></i></span></div>--}}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="info-tile tile-success">
+                                    <div class="tile-icon"><i class="fa fa-external-link"></i></div>
+                                    <div class="tile-heading"><span>Saídas</span></div>
+                                    <div class="tile-body"><span>345</span></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="info-tile tile-danger">
+                                    <div class="tile-icon"><i class="fa fa-thumbs-o-up"></i></div>
+                                    <div class="tile-heading"><span>Voltas</span></div>
+                                    <div class="tile-body"><span>21</span></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="info-tile tile-info">
+                                    <div class="tile-icon"><i class="fa fa-arrows-v"></i></div>
+                                    <div class="tile-heading"><span>Diferença em estoque</span></div>
+                                    <div class="tile-body"><span>124</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

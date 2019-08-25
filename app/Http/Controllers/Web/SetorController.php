@@ -4,16 +4,18 @@ namespace Was\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use Was\Http\Controllers\Controller;
-use Was\Services\Web\UserService;
+use Was\Http\Requests\SetorRequest;
+use Was\Services\Web\SetorService;
 use Yajra\DataTables\DataTables;
 
-class UserController extends Controller
+class SetorController extends Controller
 {
-
-
+    /**
+     * @var SetorService
+     */
     private $service;
 
-    public function __construct(UserService $service)
+    public function __construct(SetorService $service)
     {
         $this->service = $service;
     }
@@ -25,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        return view('setor.index');
     }
 
     /**
@@ -34,7 +36,7 @@ class UserController extends Controller
     public function grid()
     {
         #Criando a consulta
-        $users = \DB::table('users')->select(['id', 'name', 'email']);
+        $users = \DB::table('setores')->select(['id', 'nome']);
 
         #Editando a grid
         return DataTables::of($users)->addColumn('action', function ($row) {
@@ -46,8 +48,18 @@ class UserController extends Controller
 
             # Checando permissão
             //if($user->can('usuario.update')) {
-                $html .= '<a href="user/edit/'.$row->id.'" title="Editar" class="btn btn-info btn-sm"><i class="ti ti-pencil""></i> </a>';
+                $html .= '<a href="setor/edit/'.$row->id.'" title="Editar" class="btn btn-info btn-sm"><i class="ti ti-pencil""></i> </a>';
             //}
+
+            # Verificando se existe vinculo
+            $setor = $this->service->find($row->id);
+
+            if(count($setor->rotas) == 0) {
+                # Checando permissão
+                //if($user->can('impressoras.destroy')) {
+                    $html .= '<a href="setor/delete/' . $row->id . '" title="Excluir" class="btn btn-danger btn-sm"><i class="ti ti-trash""></i> </a>';
+               // }
+            }
 
             return $html;
         })->make(true);
@@ -61,16 +73,14 @@ class UserController extends Controller
     public function create()
     {
         #Retorno para view
-        return view('user.create');
+        return view('setor.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param SetorRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SetorRequest $request)
     {
         try {
             #Recuperando os dados da requisição
@@ -87,17 +97,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -107,23 +106,21 @@ class UserController extends Controller
     {
         try {
             #Recuperando o crud
-            $user = $this->service->find($id);
+            $model = $this->service->find($id);
 
             #retorno para view
-            return view('user.edit', compact('user'));
+            return view('setor.edit', compact('model'));
         } catch (\Throwable $e) {
             return redirect()->back()->with('message', $e->getMessage());
         }
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param SetorRequest $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SetorRequest $request, $id)
     {
         try {
             #Recuperando os dados da requisição
@@ -147,6 +144,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            #Executando a ação
+            $this->service->delete($id);
+
+            #Retorno para a view
+            return redirect()->back()->with("message", "Remoção realizada com sucesso!");
+        } catch (\Throwable $e) { dd($e);
+            return redirect()->back()->with('message', $e->getMessage());
+        }
     }
 }

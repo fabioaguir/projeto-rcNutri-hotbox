@@ -83,22 +83,23 @@
                                                     </div>
                                                 </div>
 
-                                                {{--<div class="form-group">--}}
-                                                    {{--<label class="col-sm-2 control-label label-input-xs">Ativar/Desativar</label>--}}
-                                                    {{--<div class="col-sm-8">--}}
-                                                        {{--<ul class="demo-btns mb-n xs">--}}
-                                                            {{--<li>--}}
-                                                                {{--{!! Form::hidden('active', 0) !!}--}}
-                                                                {{--{!! Form::checkbox('active', 1, null, ['class' => 'js-switch-info switchery-xs']) !!}--}}
-                                                            {{--</li>--}}
-                                                        {{--</ul>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label label-input-xs">Ativar/Desativar</label>
+                                                    <div class="col-sm-8">
+                                                        <ul class="demo-btns mb-n xs">
+                                                            <li>
+                                                                {!! Form::hidden('active', 0) !!}
+                                                                {!! Form::checkbox('active', 1, null, ['class' => 'js-switch-info switchery-xs']) !!}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            {{--<div class="col-md-4" style="margin-top: -9px">
+                                            <div class="col-md-4" style="margin-top: -9px">
                                                 <div class="col-md-4">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                                        <div class="fileinput-preview thumbnail"
+                                                             data-trigger="fileinput"
                                                              style="width: 135px; height: 115px;">
                                                         </div>
                                                         <div>
@@ -107,11 +108,13 @@
                                                         <span class="fileinput-exists">Mudar</span>
                                                         <input type="file" name="img">
                                                     </span>
-                                                            --}}{{--<a href="#" class="btn btn-warning btn-xs fileinput-exists col-md-6" data-dismiss="fileinput">Remover</a>--}}{{--
+                                                            <a href="#"
+                                                               class="btn btn-warning btn-xs fileinput-exists col-md-6"
+                                                               data-dismiss="fileinput">Remover</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>--}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="perfil">
@@ -141,4 +144,13 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    @parent
+
+    <script type="text/javascript">
+        var elem = document.querySelector('.js-switch-info');
+        var init = new Switchery(elem);
+    </script>
 @endsection
