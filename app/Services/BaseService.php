@@ -13,12 +13,11 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 class BaseService implements ServiceInterface
 {
-
     use TraitService;
 
     protected $repository;
 
-    public function __construct($repository)
+    public function __construct(RepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

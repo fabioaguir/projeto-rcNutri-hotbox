@@ -70,6 +70,26 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::post('update/{id}', ['uses' => 'Web\ServicoController@update'])->name('servico.update');
             Route::get('delete/{id}', ['uses' => 'Web\ServicoController@destroy'])->name('servico.delete');
         });
+
+        Route::group(['prefix' => 'embalagem'], function () {
+            Route::get('/', ['uses' => 'Web\EmbalagemController@index'])->name('embalagem.index');
+            Route::post('/grid', ['uses' => 'Web\EmbalagemController@grid'])->name('embalagem.grid');
+            Route::get('create', ['uses' => 'Web\EmbalagemController@create'])->name('embalagem.create');
+            Route::post('store', ['uses' => 'Web\EmbalagemController@store'])->name('embalagem.store');
+            Route::get('edit/{id}', ['uses' => 'Web\EmbalagemController@edit'])->name('embalagem.edit');
+            Route::post('update/{id}', ['uses' => 'Web\EmbalagemController@update'])->name('embalagem.update');
+            Route::get('delete/{id}', ['uses' => 'Web\EmbalagemController@destroy'])->name('embalagem.delete');
+        });
+
+        Route::group(['prefix' => 'tipoEmbalagem'], function () {
+            Route::get('/', ['uses' => 'Web\TipoEmbalagemController@index'])->name('tipoEmbalagem.index');
+            Route::post('/grid', ['uses' => 'Web\TipoEmbalagemController@grid'])->name('tipoEmbalagem.grid');
+            Route::get('create', ['uses' => 'Web\TipoEmbalagemController@create'])->name('tipoEmbalagem.create');
+            Route::post('store', ['uses' => 'Web\TipoEmbalagemController@store'])->name('tipoEmbalagem.store');
+            Route::get('edit/{id}', ['uses' => 'Web\TipoEmbalagemController@edit'])->name('tipoEmbalagem.edit');
+            Route::post('update/{id}', ['uses' => 'Web\TipoEmbalagemController@update'])->name('tipoEmbalagem.update');
+            Route::get('delete/{id}', ['uses' => 'Web\TipoEmbalagemController@destroy'])->name('tipoEmbalagem.delete');
+        });
     });
 });
 

@@ -209,6 +209,8 @@
                                                 <li><a href="{{ route('rota.index')}}">ROTAS</a></li>
                                                 <li><a href="{{ route('escola.index')}}">ESCOLAS</a></li>
                                                 <li><a href="{{ route('servico.index')}}">SERVIÇOS</a></li>
+                                                <li><a href="{{ route('tipoEmbalagem.index')}}">TIPO DE EMBALAGENS</a></li>
+                                                <li><a href="{{ route('embalagem.index')}}">EMBALAGENS</a></li>
                                             </ul>
                                         </li>
 
