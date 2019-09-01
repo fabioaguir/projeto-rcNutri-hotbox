@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface RotaRepository extends RepositoryInterface
 {
-    //
+    public function searshBySetor($setor);
 }

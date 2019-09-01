@@ -25,8 +25,6 @@ class EscolaRepositoryEloquent extends BaseRepository implements EscolaRepositor
         return Escola::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -34,5 +32,16 @@ class EscolaRepositoryEloquent extends BaseRepository implements EscolaRepositor
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function searshByRota($rota)
+    {
+        $query = \DB::table('escolas')
+            ->where('rotas_id', $rota)
+            ->select([
+                'id',
+                'nome'
+            ]);
+
+        return $query->get();
+    }
 }

@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface EscolaRepository extends RepositoryInterface
 {
-    //
+    public function searshByRota($rota);
 }

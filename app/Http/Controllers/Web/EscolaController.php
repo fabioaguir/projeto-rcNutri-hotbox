@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Was\Http\Controllers\Controller;
 use Was\Http\Requests\EscolaRequest;
 use Was\Http\Requests\RotaRequest;
+use Was\Repositories\EscolaRepository;
 use Was\Services\Web\EscolaService;
 use Was\Services\Web\RotaService;
 use Yajra\DataTables\DataTables;
@@ -18,15 +19,21 @@ class EscolaController extends Controller
     private $service;
 
     /**
+     * @var RotaService
+     */
+    private $repository;
+
+    /**
      * @var array
      */
     private $loadFields = [
         'Rota'
     ];
 
-    public function __construct(EscolaService $service)
+    public function __construct(EscolaService $service, EscolaRepository $repository)
     {
         $this->service = $service;
+        $this->repository = $repository;
     }
 
     /**
@@ -113,7 +120,7 @@ class EscolaController extends Controller
             #Retorno para a view
             return redirect()->back()->with("message", "Cadastro realizado com sucesso!");
         } catch (\Throwable $e) {
-            return redirect()->back()->with('message', $e->getMessage());
+            return redirect()->back()->withInput()->with('message', $e->getMessage());
         }
     }
 
@@ -179,6 +186,31 @@ class EscolaController extends Controller
             return redirect()->back()->with("message", "Remoção realizada com sucesso!");
         } catch (\Throwable $e) { dd($e);
             return redirect()->back()->with('message', $e->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function searchByRota(Request $request)
+    {
+        try {
+            # Recuperando a requisição
+            $rota = $request->get('rota');
+
+            # Recuperando aa escolas
+            $escola = $this->repository->searshByRota($rota);
+
+            # verificando se o registro foi recuperado
+            if(!$escola) {
+                throw new \Exception('Escolas não encontrada!');
+            }
+
+            #Retorno para a view
+            return response()->json(['success' => true, 'data' => $escola]);
+        } catch (\Throwable $e) {
+            return  response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
     }
 }

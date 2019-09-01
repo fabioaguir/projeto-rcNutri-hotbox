@@ -25,14 +25,24 @@ class RotaRepositoryEloquent extends BaseRepository implements RotaRepository
         return Rota::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function searshBySetor($setor)
+    {
+        $query = \DB::table('rotas')
+            ->where('setores_id', $setor)
+            ->select([
+                'id',
+                'nome'
+            ]);
+
+        return $query->get();
     }
     
 }

@@ -75,7 +75,7 @@
                     </a>
                 </span>
 
-                <a class="navbar-brand" href="{{ route('home') }}">HOTBOX</a>
+               {{-- <a class="navbar-brand" href="{{ route('home') }}">HOTBOX</a>--}}
 
                 <div class="toolbar-icon-bg hidden-xs" id="toolbar-search">
                     <div class="input-icon">
@@ -203,6 +203,18 @@
                                         <li class="nav-separator"><span>Menu</span></li>
                                         <li><a href="{{ route('home')}}"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
                                         <li>
+                                            <a href="javascript:;"><i class="fa fa-archive"></i><span>ESTOQUE</span></a>
+                                            <ul class="acc-menu">
+                                                <li><a href="{{ route('embalagemEstoque.index')}}">ESTOQUE EMBALAGEM</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;"><i class="fa fa-automobile"></i><span>SAÍDAS</span></a>
+                                            <ul class="acc-menu">
+                                                <li><a href="{{ route('controleSaidaEmbalagem.index')}}">SAÍDA EMBALAGEM</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
                                             <a href="javascript:;"><i class="ti ti-plus"></i><span>CADASTROS</span></a>
                                             <ul class="acc-menu">
                                                 <li><a href="{{ route('setor.index')}}">SETORES</a></li>
@@ -211,6 +223,8 @@
                                                 <li><a href="{{ route('servico.index')}}">SERVIÇOS</a></li>
                                                 <li><a href="{{ route('tipoEmbalagem.index')}}">TIPO DE EMBALAGENS</a></li>
                                                 <li><a href="{{ route('embalagem.index')}}">EMBALAGENS</a></li>
+                                                <li><a href="{{ route('motorista.index')}}">MOTORISTAS</a></li>
+                                                <li><a href="{{ route('veiculo.index')}}">VEÍCULOS</a></li>
                                             </ul>
                                         </li>
 
@@ -325,7 +339,7 @@
         <script type="text/javascript" src="{{ asset('/assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
 
         <!-- Rotas para javascript -->
-        {{--<script type="text/javascript" src="{{ asset('/js/laroute.js') }}"></script>--}}
+        <script type="text/javascript" src="{{ asset('/js/laroute.js') }}"></script>
 
         <!-- plugins adicionais -->
         <script type="text/javascript" src="{{ asset('/assets/plugins/switchery/switchery.js')}}"></script>

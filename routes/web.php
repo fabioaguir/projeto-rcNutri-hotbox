@@ -49,6 +49,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('edit/{id}', ['uses' => 'Web\RotaController@edit'])->name('rota.edit');
             Route::post('update/{id}', ['uses' => 'Web\RotaController@update'])->name('rota.update');
             Route::get('delete/{id}', ['uses' => 'Web\RotaController@destroy'])->name('rota.delete');
+            Route::get('searchBySetor', ['uses' => 'Web\RotaController@searchBySetor'])->name('rota.searchBySetor');
         });
 
         Route::group(['prefix' => 'escola'], function () {
@@ -59,6 +60,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('edit/{id}', ['uses' => 'Web\EscolaController@edit'])->name('escola.edit');
             Route::post('update/{id}', ['uses' => 'Web\EscolaController@update'])->name('escola.update');
             Route::get('delete/{id}', ['uses' => 'Web\EscolaController@destroy'])->name('escola.delete');
+            Route::get('searchByRota', ['uses' => 'Web\EscolaController@searchByRota'])->name('escola.searchByRota');
         });
 
         Route::group(['prefix' => 'servico'], function () {
@@ -89,6 +91,48 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('edit/{id}', ['uses' => 'Web\TipoEmbalagemController@edit'])->name('tipoEmbalagem.edit');
             Route::post('update/{id}', ['uses' => 'Web\TipoEmbalagemController@update'])->name('tipoEmbalagem.update');
             Route::get('delete/{id}', ['uses' => 'Web\TipoEmbalagemController@destroy'])->name('tipoEmbalagem.delete');
+        });
+
+        Route::group(['prefix' => 'motorista'], function () {
+            Route::get('/', ['uses' => 'Web\MotoristaController@index'])->name('motorista.index');
+            Route::post('/grid', ['uses' => 'Web\MotoristaController@grid'])->name('motorista.grid');
+            Route::get('create', ['uses' => 'Web\MotoristaController@create'])->name('motorista.create');
+            Route::post('store', ['uses' => 'Web\MotoristaController@store'])->name('motorista.store');
+            Route::get('edit/{id}', ['uses' => 'Web\MotoristaController@edit'])->name('motorista.edit');
+            Route::post('update/{id}', ['uses' => 'Web\MotoristaController@update'])->name('motorista.update');
+            Route::get('delete/{id}', ['uses' => 'Web\MotoristaController@destroy'])->name('motorista.delete');
+        });
+
+        Route::group(['prefix' => 'veiculo'], function () {
+            Route::get('/', ['uses' => 'Web\VeiculoController@index'])->name('veiculo.index');
+            Route::post('/grid', ['uses' => 'Web\VeiculoController@grid'])->name('veiculo.grid');
+            Route::get('create', ['uses' => 'Web\VeiculoController@create'])->name('veiculo.create');
+            Route::post('store', ['uses' => 'Web\VeiculoController@store'])->name('veiculo.store');
+            Route::get('edit/{id}', ['uses' => 'Web\VeiculoController@edit'])->name('veiculo.edit');
+            Route::post('update/{id}', ['uses' => 'Web\VeiculoController@update'])->name('veiculo.update');
+            Route::get('delete/{id}', ['uses' => 'Web\VeiculoController@destroy'])->name('veiculo.delete');
+        });
+
+        Route::group(['prefix' => 'embalagemEstoque'], function () {
+            Route::get('/', ['uses' => 'Web\EmbalagemEstoqueController@index'])->name('embalagemEstoque.index');
+            Route::post('/grid', ['uses' => 'Web\EmbalagemEstoqueController@grid'])->name('embalagemEstoque.grid');
+            Route::get('create', ['uses' => 'Web\EmbalagemEstoqueController@create'])->name('embalagemEstoque.create');
+            Route::post('store', ['uses' => 'Web\EmbalagemEstoqueController@store'])->name('embalagemEstoque.store');
+            Route::get('edit/{id}', ['uses' => 'Web\EmbalagemEstoqueController@edit'])->name('embalagemEstoque.edit');
+            Route::post('update/{id}', ['uses' => 'Web\EmbalagemEstoqueController@update'])->name('embalagemEstoque.update');
+            Route::get('delete/{id}', ['uses' => 'Web\EmbalagemEstoqueController@destroy'])->name('embalagemEstoque.delete');
+        });
+
+        Route::group(['prefix' => 'controleSaidaEmbalagem'], function () {
+            Route::get('/', ['uses' => 'Web\ControleSaidaEmbalagemController@index'])->name('controleSaidaEmbalagem.index');
+            Route::post('/grid', ['uses' => 'Web\ControleSaidaEmbalagemController@grid'])->name('controleSaidaEmbalagem.grid');
+            Route::get('create', ['uses' => 'Web\ControleSaidaEmbalagemController@create'])->name('controleSaidaEmbalagem.create');
+            Route::post('store', ['uses' => 'Web\ControleSaidaEmbalagemController@store'])->name('controleSaidaEmbalagem.store');
+            Route::get('edit/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@edit'])->name('controleSaidaEmbalagem.edit');
+            Route::post('update/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@update'])->name('controleSaidaEmbalagem.update');
+            Route::get('delete/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@destroy'])->name('controleSaidaEmbalagem.delete');
+            Route::get('baixa/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@baixa'])->name('controleSaidaEmbalagem.baixa');
+            Route::post('confirmarBaixa/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@confirmarBaixa'])->name('controleSaidaEmbalagem.confirmarBaixa');
         });
     });
 });

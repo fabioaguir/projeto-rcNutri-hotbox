@@ -35,4 +35,18 @@ class Embalagem extends Model implements Transformable
     public function tipoEmbalagem(){
         return $this->belongsTo(TipoEmbalagem::class, 'tipo_embalagens_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function estoques(){
+        return $this->hasMany(EmbalagemEstoque::class, 'embalagens_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function controleSaidaEmbalagens(){
+        return $this->hasMany(ControleSaidaEmbalagem::class, 'embalagens_id', 'id');
+    }
 }

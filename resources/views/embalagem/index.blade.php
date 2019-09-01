@@ -132,5 +132,17 @@
         $('.panel-footer').append($(".dataTable+.row"));
         $('.dataTables_paginate>ul.pagination').addClass("pull-right m-n");
 
+        $(document).on('click', 'a.delete', function (event) {
+            event.preventDefault();
+            var url = $(this).attr('href');
+            bootbox.confirm("Tem certeza da exclusão do item?", function (result) {
+                if (result) {
+                    location.href = url
+                } else {
+                    false;
+                }
+            });
+        });
+
     </script>
 @endsection

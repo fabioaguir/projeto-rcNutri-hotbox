@@ -67,14 +67,14 @@ class EmbalagemController extends Controller
             //}
 
             # Verificando se existe vinculo
-            $rota = $this->service->find($row->id);
+            $embalagem = $this->service->find($row->id);
 
-            //if(count($area->vendedores) == 0) {
+            if(count($embalagem->estoques) == 0) {
                 # Checando permissão
                 //if($user->can('impressoras.destroy')) {
-                    $html .= '<a href="embalagem/delete/' . $row->id . '" title="Excluir" class="btn btn-danger btn-sm"><i class="ti ti-trash""></i> </a>';
+                    $html .= '<a href="embalagem/delete/' . $row->id . '" title="Excluir" class="btn btn-danger btn-sm delete"><i class="ti ti-trash""></i> </a>';
                // }
-            //}
+            }
 
             return $html;
         })->make(true);
@@ -113,7 +113,7 @@ class EmbalagemController extends Controller
             #Retorno para a view
             return redirect()->back()->with("message", "Cadastro realizado com sucesso!");
         } catch (\Throwable $e) {
-            return redirect()->back()->with('message', $e->getMessage());
+            return redirect()->back()->withInput()->with('message', $e->getMessage());
         }
     }
 

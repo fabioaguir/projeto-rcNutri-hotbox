@@ -92,7 +92,7 @@ class SetorController extends Controller
             #Retorno para a view
             return redirect()->back()->with("message", "Cadastro realizado com sucesso!");
         } catch (\Throwable $e) {
-            return redirect()->back()->with('message', $e->getMessage());
+            return redirect()->back()->withInput()->with('message', $e->getMessage());
         }
     }
 

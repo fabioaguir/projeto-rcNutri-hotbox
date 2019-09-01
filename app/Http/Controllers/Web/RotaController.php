@@ -5,6 +5,7 @@ namespace Was\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use Was\Http\Controllers\Controller;
 use Was\Http\Requests\RotaRequest;
+use Was\Repositories\RotaRepository;
 use Was\Services\Web\RotaService;
 use Yajra\DataTables\DataTables;
 
@@ -16,15 +17,21 @@ class RotaController extends Controller
     private $service;
 
     /**
+     * @var RotaRepository
+     */
+    private $repository;
+
+    /**
      * @var array
      */
     private $loadFields = [
         'Setor'
     ];
 
-    public function __construct(RotaService $service)
+    public function __construct(RotaService $service, RotaRepository $repository)
     {
         $this->service = $service;
+        $this->repository = $repository;
     }
 
     /**
@@ -111,7 +118,7 @@ class RotaController extends Controller
             #Retorno para a view
             return redirect()->back()->with("message", "Cadastro realizado com sucesso!");
         } catch (\Throwable $e) {
-            return redirect()->back()->with('message', $e->getMessage());
+            return redirect()->back()->withInput()->with('message', $e->getMessage());
         }
     }
 
@@ -177,6 +184,31 @@ class RotaController extends Controller
             return redirect()->back()->with("message", "Remoção realizada com sucesso!");
         } catch (\Throwable $e) { dd($e);
             return redirect()->back()->with('message', $e->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function searchBySetor(Request $request)
+    {
+        try {
+            # Recuperando a requisição
+            $setor = $request->get('setor');
+
+            # Recuperando as rotas
+            $rotas = $this->repository->searshBySetor($setor);
+
+            # verificando se o registro foi recuperado
+            if(!$rotas) {
+                throw new \Exception('Rotas não encontrada!');
+            }
+
+            #Retorno para a view
+            return response()->json(['success' => true, 'data' => $rotas]);
+        } catch (\Throwable $e) {
+            return  response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
     }
 }

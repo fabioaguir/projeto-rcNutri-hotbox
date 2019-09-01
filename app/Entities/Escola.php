@@ -31,7 +31,7 @@ class Escola extends Model implements Transformable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function setor(){
+    public function rota(){
         return $this->belongsTo(Rota::class, 'rotas_id', 'id');
     }
 
