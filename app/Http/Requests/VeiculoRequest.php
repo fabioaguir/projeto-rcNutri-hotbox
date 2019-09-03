@@ -28,7 +28,8 @@ class VeiculoRequest extends FormRequest
             'cor' => 'required',
             'placa' => 'required',
             'tipo_veiculos_id' => 'required',
-            'ano' => 'required'
+            'ano' => 'required',
+            'renavan' => 'required',
         ];
     }
 }

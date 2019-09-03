@@ -63,7 +63,7 @@
 
         <div class="extrabar-underlay"></div>
 
-        <header id="topnav" class="navbar navbar-red navbar-fixed-top">
+        <header id="topnav" class="navbar navbar-deep-orange navbar-fixed-top">
 
             {{-- logo-area --}}
             <div class="logo-area">
@@ -173,7 +173,7 @@
 
         <div id="wrapper">
             <div id="layout-static">
-                <div class="static-sidebar-wrapper sidebar-teal">
+                <div class="static-sidebar-wrapper sidebar-green">
                     <div class="static-sidebar">
                         <div class="sidebar">
                             <div class="widget">
@@ -209,9 +209,20 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="javascript:;"><i class="fa fa-automobile"></i><span>SAÍDAS</span></a>
+                                            <a href="javascript:;"><i class="fa fa-user"></i><span>SAÍDAS</span></a>
                                             <ul class="acc-menu">
                                                 <li><a href="{{ route('controleSaidaEmbalagem.index')}}">SAÍDA EMBALAGEM</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;"><i class="fa fa-automobile"></i><span>GESTÃO</span></a>
+                                            <ul class="acc-menu">
+                                                <li><a href="javascript:;">CONTROLE EMBALAGEM</a>
+                                                    <ul class="acc-menu">
+                                                        <li><a href="{{ route('gestao.viewControleEmbalagemSaidas')}}">SAÍDAS</a></li>
+                                                        <li><a href="{{ route('gestao.viewControleEmbalagemRetornadas')}}">RETORNADAS</a></li>
+                                                    </ul>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li>

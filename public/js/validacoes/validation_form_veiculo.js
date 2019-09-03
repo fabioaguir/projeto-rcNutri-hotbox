@@ -41,6 +41,13 @@ $(document).ready(function () {
                         message: "Este campo é obrigatório",
                     },
                 }
+            },
+            'renavan': {
+                validators: {
+                    notEmpty: {
+                        message: "Este campo é obrigatório",
+                    }
+                }
             }
         }
     });

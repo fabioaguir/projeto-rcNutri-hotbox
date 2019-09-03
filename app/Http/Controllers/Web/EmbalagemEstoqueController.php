@@ -44,7 +44,7 @@ class EmbalagemEstoqueController extends Controller
     public function grid()
     {
         #Criando a consulta
-        $users = \DB::table('embalagens_estoque as estoque')
+        $estoques = \DB::table('embalagens_estoque as estoque')
             ->join('embalagens', 'embalagens.id', '=', 'estoque.embalagens_id')
             ->select([
                 'estoque.id',
@@ -54,7 +54,7 @@ class EmbalagemEstoqueController extends Controller
             ]);
 
         #Editando a grid
-        return DataTables::of($users)->addColumn('action', function ($row) {
+        return DataTables::of($estoques)->addColumn('action', function ($row) {
             # Html de retorno
             $html = "";
 
@@ -180,5 +180,36 @@ class EmbalagemEstoqueController extends Controller
         } catch (\Throwable $e) { dd($e);
             return redirect()->back()->with('message', $e->getMessage());
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function consultaDoEstoque()
+    {
+        #Criando a consulta
+        $estoques = \DB::table('embalagens_estoque as estoque')
+            ->join('embalagens', 'embalagens.id', '=', 'estoque.embalagens_id')
+            ->select([
+                'embalagens.id',
+                'embalagens.nome as embalagem',
+                \DB::raw("SUM(estoque.quantidade) as estoque_absoluto")
+            ])
+            ->gourpBy('embalagens.id, embalagens.nome')
+            ->orderBy('embalagens.nome');
+
+        #Editando a grid
+        return DataTables::of($estoques)->addColumn('qtd_saidas', function ($row) {
+
+            # Recuperando o usuário;
+            //$user = \Auth::user();
+
+
+
+            # Verificando se existe vinculo
+            $rota = $this->service->find($row->id);
+
+            return null;
+        })->make(true);
     }
 }

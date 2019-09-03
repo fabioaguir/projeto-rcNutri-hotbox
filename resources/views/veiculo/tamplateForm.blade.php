@@ -4,31 +4,37 @@
             <div>
                 <div class="form-group">
                     {!! Form::label('nome', 'Nome', array('class' => 'col-sm-2 control-label')) !!}
-                    <div class="col-sm-5">
+                    <div class="col-sm-3">
                         {!! Form::text('nome', Session::getOldInput('nome')  , array('class' => 'form-control')) !!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('cor', 'Cor', array('class' => 'col-sm-2 control-label')) !!}
-                    <div class="col-sm-5">
+                    <div class="col-sm-2">
                         {!! Form::text('cor', Session::getOldInput('cor')  , array('class' => 'form-control')) !!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('placa', 'Placa', array('class' => 'col-sm-2 control-label')) !!}
-                    <div class="col-sm-5">
+                    <div class="col-sm-2">
                         {!! Form::text('placa', Session::getOldInput('placa')  , array('class' => 'form-control')) !!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('ano', 'Ano', array('class' => 'col-sm-2 control-label')) !!}
-                    <div class="col-sm-5">
+                    <div class="col-sm-2">
                         {!! Form::text('ano', Session::getOldInput('ano')  , array('class' => 'form-control')) !!}
                     </div>
                 </div>
                 <div class="form-group">
+                    {!! Form::label('renavan', 'Renavan', array('class' => 'col-sm-2 control-label')) !!}
+                    <div class="col-sm-2">
+                        {!! Form::text('renavan', Session::getOldInput('renavan') , array('class' => 'form-control')) !!}
+                    </div>
+                </div>
+                <div class="form-group">
                     {!! Form::label('tipo_veiculos_id', 'Tipo do Veículo', array('class' => 'col-sm-2 control-label')) !!}
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         {!! Form::select('tipo_veiculos_id', $loadFields['tipoveiculo'], Session::getOldInput('tipo_veiculos_id'), array('class' => 'form-control')) !!}
                     </div>
                 </div>
