@@ -205,7 +205,12 @@
                                         <li>
                                             <a href="javascript:;"><i class="fa fa-archive"></i><span>ESTOQUE</span></a>
                                             <ul class="acc-menu">
-                                                <li><a href="{{ route('embalagemEstoque.index')}}">ESTOQUE EMBALAGEM</a></li>
+                                                <li><a href="javascript:;">ESTOQUE EMBALAGENS</a>
+                                                    <ul class="acc-menu">
+                                                        <li><a href="{{ route('embalagemEstoque.index')}}">ESTOQUE</a></li>
+                                                        <li><a href="{{ route('embalagemEstoque.viewConsultaDoEstoque')}}">CONSULTA</a></li>
+                                                    </ul>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li>

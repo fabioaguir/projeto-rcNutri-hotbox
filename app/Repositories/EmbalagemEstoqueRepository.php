@@ -11,5 +11,5 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface EmbalagemEstoqueRepository extends RepositoryInterface
 {
-    //
+    public function estoque(int $idEmbalagem);
 }
