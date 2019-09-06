@@ -11,5 +11,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface ControleSaidaEmbalagemRepository extends RepositoryInterface
 {
-    //
+    public function totalDeSaidas(int $idEmbalagem);
+    public function embalagensNaoRetornadas(int $idEmbalagem);
 }

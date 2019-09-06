@@ -29,6 +29,7 @@ class Veiculo extends Model implements Transformable
         'cor',
         'placa',
         'ano',
+        'renavan'
     ];
 
     /**

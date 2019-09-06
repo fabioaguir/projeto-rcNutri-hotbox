@@ -52,6 +52,7 @@ class VeiculoController extends Controller
                 'veiculos.cor',
                 'veiculos.placa',
                 'veiculos.ano',
+                'veiculos.renavan',
                 'tipo_veiculos.nome as tipo'
             ]);
 

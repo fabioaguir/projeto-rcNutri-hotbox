@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="table-responsive no-padding">
+                        <div class="table-responsive">
                             <table id="veiculo-grid" class="display table table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -65,6 +65,7 @@
                                     <th>Cor</th>
                                     <th>Placa</th>
                                     <th>Ano</th>
+                                    <th>Renavan</th>
                                     <th>Tipo</th>
                                     <th >Acão</th>
                                 </tr>
@@ -77,6 +78,7 @@
                                     <th>Cor</th>
                                     <th>Placa</th>
                                     <th>Ano</th>
+                                    <th>Renavan</th>
                                     <th>Tipo</th>
                                     <th style="width: 10%;">Acão</th>
                                 </tr>
@@ -123,6 +125,7 @@
                 {data: 'cor', name: 'cor'},
                 {data: 'placa', name: 'placa'},
                 {data: 'ano', name: 'ano'},
+                {data: 'renavan', name: 'renavan'},
                 {data: 'tipo', name: 'tipo_veiculos.nome'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]

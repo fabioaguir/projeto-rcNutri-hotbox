@@ -121,6 +121,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('edit/{id}', ['uses' => 'Web\EmbalagemEstoqueController@edit'])->name('embalagemEstoque.edit');
             Route::post('update/{id}', ['uses' => 'Web\EmbalagemEstoqueController@update'])->name('embalagemEstoque.update');
             Route::get('delete/{id}', ['uses' => 'Web\EmbalagemEstoqueController@destroy'])->name('embalagemEstoque.delete');
+            Route::get('/viewConsultaDoEstoque', ['uses' => 'Web\EmbalagemEstoqueController@viewConsultaDoEstoque'])->name('embalagemEstoque.viewConsultaDoEstoque');
+            Route::post('/consultadoEstoqueEmbalagens', ['uses' => 'Web\EmbalagemEstoqueController@consultaDoEstoque'])->name('embalagemEstoque.consultadoEstoqueEmbalagens');
         });
 
         Route::group(['prefix' => 'controleSaidaEmbalagem'], function () {
@@ -133,6 +135,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('delete/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@destroy'])->name('controleSaidaEmbalagem.delete');
             Route::get('baixa/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@baixa'])->name('controleSaidaEmbalagem.baixa');
             Route::post('confirmarBaixa/{id}', ['uses' => 'Web\ControleSaidaEmbalagemController@confirmarBaixa'])->name('controleSaidaEmbalagem.confirmarBaixa');
+            Route::post('/controleSaidas', ['uses' => 'Web\ControleSaidaEmbalagemController@grid'])->name('controleSaidaEmbalagem.controleSaidas');
+        });
+
+        Route::group(['prefix' => 'gestao'], function () {
+            Route::get('/viewControleEmbalagemSaidas', ['uses' => 'Web\ControleSaidaEmbalagemController@viewControleEmbalagemSaidas'])->name('gestao.viewControleEmbalagemSaidas');
+            Route::post('/controleEmbalagemSaidas', ['uses' => 'Web\ControleSaidaEmbalagemController@controleEmbalagemSaidas'])->name('gestao.controleEmbalagemSaidas');
+
+            Route::get('/viewControleEmbalagemRetornadas', ['uses' => 'Web\ControleSaidaEmbalagemController@viewControleEmbalagemRetornadas'])->name('gestao.viewControleEmbalagemRetornadas');
+            Route::post('/controleEmbalagemRetornadas', ['uses' => 'Web\ControleSaidaEmbalagemController@controleEmbalagemRetornadas'])->name('gestao.controleEmbalagemRetornadas');
         });
     });
 });

@@ -7,6 +7,7 @@ use Was\Http\Controllers\Controller;
 use Was\Http\Requests\ControleSaidaEmbalagemRequest;
 use Was\Services\Web\ControleSaidaEmbalagemService;
 use Was\Services\Web\RotaService;
+use Was\Utils\CarbonDateFormat;
 use Yajra\DataTables\DataTables;
 
 class ControleSaidaEmbalagemController extends Controller
@@ -74,7 +75,8 @@ class ControleSaidaEmbalagemController extends Controller
                 'motoristas.nome as motorista',
                 'embalagens.nome as embalagem',
                 'users.name as usuario',
-            ]);
+            ])
+            ->orderBy('controle.finalizado');
 
         #Editando a grid
         return DataTables::of($users)->addColumn('action', function ($row) {
@@ -257,5 +259,111 @@ class ControleSaidaEmbalagemController extends Controller
         } catch (\Throwable $e) {
             return redirect()->back()->with('message', $e->getMessage());
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewControleEmbalagemSaidas()
+    {
+        return view('gestao.controle-embalagem-saida');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function controleEmbalagemSaidas(Request $request)
+    {
+        $data = $request->all();
+
+        //Tratando as datas
+        $dataIni = CarbonDateFormat::toUsa($data['data_inicio'], 'date');
+        $dataFim = CarbonDateFormat::toUsa($data['data_fim'], 'date');
+
+        #Criando a consulta
+        $users = \DB::table('controle_saida_embalagens as controle')
+            ->join('escolas', 'escolas.id', '=', 'controle.escolas_id')
+            ->join('rotas', 'rotas.id', '=', 'escolas.rotas_id')
+            ->join('setores', 'setores.id', '=', 'rotas.setores_id')
+            ->join('servicos', 'servicos.id', '=', 'controle.servicos_id')
+            ->join('veiculos', 'veiculos.id', '=', 'controle.veiculos_id')
+            ->join('motoristas', 'motoristas.id', '=', 'controle.motoristas_id')
+            ->join('embalagens', 'embalagens.id', '=', 'controle.embalagens_id')
+            ->join('users', 'users.id', '=', 'controle.users_id')
+            ->select([
+                'controle.id',
+                \DB::raw("date_format(controle.data_saida, '%d/%m/%Y') as data_saida"),
+                'controle.finalizado',
+                'controle.qtd_saida',
+                'setores.nome as setor',
+                'rotas.nome as rota',
+                'escolas.nome as escola',
+                'servicos.nome as servico',
+                'veiculos.nome as veiculo',
+                'motoristas.nome as motorista',
+                'embalagens.nome as embalagem',
+                'users.name as usuario',
+            ])
+            ->where('controle.finalizado', 0)
+            ->whereBetween('controle.data_saida', array($dataIni, $dataFim))
+            ->orderBy('data_saida');
+
+        #Editando a grid
+        return DataTables::of($users)->make(true);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewControleEmbalagemRetornadas()
+    {
+        return view('gestao.controle-embalagem-retorno');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function controleEmbalagemRetornadas(Request $request)
+    {
+        $data = $request->all();
+
+        //Tratando as datas
+        $dataIni = CarbonDateFormat::toUsa($data['data_inicio'], 'date');
+        $dataFim = CarbonDateFormat::toUsa($data['data_fim'], 'date');
+
+        #Criando a consulta
+        $users = \DB::table('controle_saida_embalagens as controle')
+            ->join('escolas', 'escolas.id', '=', 'controle.escolas_id')
+            ->join('rotas', 'rotas.id', '=', 'escolas.rotas_id')
+            ->join('setores', 'setores.id', '=', 'rotas.setores_id')
+            ->join('servicos', 'servicos.id', '=', 'controle.servicos_id')
+            ->join('veiculos', 'veiculos.id', '=', 'controle.veiculos_id')
+            ->join('motoristas', 'motoristas.id', '=', 'controle.motoristas_id')
+            ->join('embalagens', 'embalagens.id', '=', 'controle.embalagens_id')
+            ->join('users', 'users.id', '=', 'controle.users_id')
+            ->select([
+                'controle.id',
+                \DB::raw("date_format(controle.data_saida, '%d/%m/%Y') as data_volta"),
+                'controle.finalizado',
+                'controle.qtd_volta',
+                'setores.nome as setor',
+                'rotas.nome as rota',
+                'escolas.nome as escola',
+                'servicos.nome as servico',
+                'veiculos.nome as veiculo',
+                'motoristas.nome as motorista',
+                'embalagens.nome as embalagem',
+                'users.name as usuario',
+            ])
+            ->where('controle.finalizado', 1)
+            ->whereBetween('controle.data_volta', array($dataIni, $dataFim))
+            ->orderBy('data_volta');
+
+        #Editando a grid
+        return DataTables::of($users)->make(true);
     }
 }

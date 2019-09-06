@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="table-responsive no-padding">
+                        <div class="table-responsive">
                             <table id="user-grid" class="display table table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>

@@ -5,6 +5,8 @@ namespace Was\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use Was\Http\Controllers\Controller;
 use Was\Http\Requests\EmbalagemEstoqueRequest;
+use Was\Repositories\ControleSaidaEmbalagemRepository;
+use Was\Repositories\EmbalagemEstoqueRepository;
 use Was\Services\Web\EmbalagemEstoqueService;
 use Was\Services\Web\RotaService;
 use Yajra\DataTables\DataTables;
@@ -16,6 +18,10 @@ class EmbalagemEstoqueController extends Controller
      */
     private $service;
 
+    private $repository;
+
+    private $controleSaidaEmbalagemRepository;
+
     /**
      * @var array
      */
@@ -23,9 +29,13 @@ class EmbalagemEstoqueController extends Controller
         'Embalagem'
     ];
 
-    public function __construct(EmbalagemEstoqueService $service)
+    public function __construct(EmbalagemEstoqueService $service,
+                                ControleSaidaEmbalagemRepository $controleSaidaEmbalagemRepository,
+                                EmbalagemEstoqueRepository $repository)
     {
         $this->service = $service;
+        $this->controleSaidaEmbalagemRepository = $controleSaidaEmbalagemRepository;
+        $this->repository = $repository;
     }
 
     /**
@@ -44,7 +54,7 @@ class EmbalagemEstoqueController extends Controller
     public function grid()
     {
         #Criando a consulta
-        $users = \DB::table('embalagens_estoque as estoque')
+        $estoques = \DB::table('embalagens_estoque as estoque')
             ->join('embalagens', 'embalagens.id', '=', 'estoque.embalagens_id')
             ->select([
                 'estoque.id',
@@ -54,7 +64,7 @@ class EmbalagemEstoqueController extends Controller
             ]);
 
         #Editando a grid
-        return DataTables::of($users)->addColumn('action', function ($row) {
+        return DataTables::of($estoques)->addColumn('action', function ($row) {
             # Html de retorno
             $html = "";
 
@@ -180,5 +190,56 @@ class EmbalagemEstoqueController extends Controller
         } catch (\Throwable $e) { dd($e);
             return redirect()->back()->with('message', $e->getMessage());
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewConsultaDoEstoque()
+    {
+        return view('gestao.consulta-do-estoque');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function consultaDoEstoque()
+    {
+        #Criando a consulta
+        $estoques = \DB::table("embalagens_estoque as estoque")
+            ->join("embalagens", "embalagens.id", '=', "estoque.embalagens_id")
+            ->select(
+                "embalagens.id",
+                "embalagens.nome",
+                \DB::raw("SUM(estoque.quantidade) as estoque")
+            )
+            ->groupBy(\DB::raw("embalagens.id,embalagens.nome"))
+            ->orderBy("embalagens.nome");
+
+        #Editando a grid
+        return DataTables::of($estoques)->addColumn('qtd_saidas', function ($row) {
+
+            $qtd = $this->controleSaidaEmbalagemRepository->totalDeSaidas($row->id);
+
+            return $qtd->quantidade;
+        })->addColumn('embalagens_nao_retornadas', function ($row) {
+
+            $qtd = $this->controleSaidaEmbalagemRepository->embalagensNaoRetornadas($row->id);
+
+            return $qtd->quantidade;
+        })->addColumn('estoque_atual', function ($row) {
+
+            $saidas = $this->controleSaidaEmbalagemRepository->totalDeSaidas($row->id);
+
+            $naoRetornadas = $this->controleSaidaEmbalagemRepository->embalagensNaoRetornadas($row->id);
+
+            $estoque = $this->repository->estoque($row->id);
+
+            $total = $estoque->quantidade - ($saidas->quantidade + $naoRetornadas->quantidade);
+
+            return $total;
+        })->make(true);
     }
 }

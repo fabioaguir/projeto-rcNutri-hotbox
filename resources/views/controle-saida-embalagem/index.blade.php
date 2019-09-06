@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="table-responsive no-padding">
+                        <div class="table-responsive">
                             <table id="controleSaidaEmbalagem-grid" class="display table table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -123,7 +123,7 @@
             fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 if ( aData['finalizado'] == "0" )
                 {
-                    $('td', nRow).css('background-color', '#a8ebcd');
+                    $('td', nRow).css('background-color', '#F0E68C');
                 }
             },
             ajax: {
